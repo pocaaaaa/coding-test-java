@@ -40,10 +40,10 @@ public class 기사단원의무기 {
     public static int solution(int number, int limit, int power) {
         return IntStream.rangeClosed(1, number)
                 .map(x -> {
-            return IntStream.rangeClosed(1, x)
-                    .filter(i -> (x % i) == 0)
-                    .toArray()
-                    .length;
+                        return IntStream.rangeClosed(1, x)
+                        .filter(i -> (x % i) == 0)
+                        .toArray()
+                        .length;
                 })
                 .reduce(0, (total, n) -> {
                     return (n > limit) ? total + power : total + n;
