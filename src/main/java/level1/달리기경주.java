@@ -1,9 +1,6 @@
 package level1;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -37,6 +34,7 @@ public class 달리기경주 {
         // ["mumu", "kai", "mine", "soe", "poe"]
         System.out.println(Arrays.toString(s.solution(players, callings)));
         System.out.println(Arrays.toString(s.solution2(players, callings)));
+        System.out.println(Arrays.toString(s.solution3(players, callings)));
     }
 }
 
@@ -68,5 +66,26 @@ class Solution {
         }
 
         return tempPlayers.toArray(new String[0]);
+    }
+
+    public String[] solution3(String[] players, String[] callings) {
+        Map<String, Integer> ranks = new HashMap<>();
+        for (int i = 0; i < players.length; i++) {
+            ranks.put(players[i], i);
+        }
+
+        for (String callingPlayer : callings) {
+            int currentRank = ranks.get(callingPlayer);
+            int aheadRank = currentRank - 1;
+
+            String aheadPlayer = players[aheadRank];
+            players[currentRank] = aheadPlayer;
+            players[aheadRank] = callingPlayer;
+
+            ranks.put(callingPlayer, aheadRank);
+            ranks.put(aheadPlayer, currentRank);
+        }
+
+        return players;
     }
 }
